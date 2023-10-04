@@ -15,6 +15,7 @@ jobs:
       github.event_name == 'pull_request_target' &&
       github.event.pull_request.merged == true &&
       github.event.pull_request.user.login != 'dependabot[bot]' &&
+      github.event.pull_request.user.login != 'nikohoffren' &&
       github.event.pull_request.user.login != 'dependabot-preview[bot]'
     steps:
       - name: Checkout code
@@ -56,7 +57,7 @@ jobs:
 
           ### What's next?
 
-          If you're looking for more ways to contribute, I invite you to check out my other projects. Just click [here](https://github.com/nikohoffren?tab=repositories) to find more. These projects contain real issues that you can help resolve.
+          If you're looking for more ways to contribute, I invite you to check out my other projects. Just click [here](https://github.com/nikohoffren?tab=repositories) to find more. These projects contain real issues that you can help resolve. You can also check out the [Influences](https://github.com/nikohoffren/fork-commit-merge#influences) section in the README to find more projects similar to this one.
 
           Also please leave a star to this project if you feel it helped you, i would really appreciate it.
 
@@ -110,6 +111,9 @@ jobs:
       run: |
         LAST_CONTRIBUTOR=$(tail -n 1 README.md | awk -F'[@"]' '{print $2}')
         echo "::set-output name=last_contributor::$LAST_CONTRIBUTOR"
+
+    - name: Debug
+      run: echo "Last contributor is ${{ steps.extract_last_contributor.outputs.last_contributor }}"
 
     - name: Get contributor id
       id: get_contributor_id
